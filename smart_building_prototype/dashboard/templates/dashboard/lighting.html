@@ -1,11 +1,128 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
 
-{% block title %}Lighting Control{% endblock %}
+{% block title %}Lighting Management{% endblock %}
 
 {% block content %}
-<section class="card">
-    <h2>Lighting Control</h2>
-    <p>Status: <span id="lighting-status">OFF</span></p>
-    <button onclick="toggleLighting()">Toggle Lights</button>
-</section>
+<div class="lighting-dashboard">
+    <h1>Smart Lighting System</h1>
+    <p>Control and monitor building lighting using AI and IoT-based automation.</p>
+
+    <section class="lighting-section">
+        <h2>Occupancy-Based Adaptive Lighting</h2>
+        <p>Status: <span id="occupancy-status">No movement detected</span></p>
+        <button class="btn-control" onclick="simulateOccupancy()">Simulate Occupancy</button>
+    </section>
+
+    <section class="lighting-section">
+        <h2>AI-Based Light Control</h2>
+        <p>Brightness Level: <span id="brightness-value">50%</span></p>
+        <input type="range" id="brightness" name="brightness" min="0" max="100" value="50"
+            onchange="updateBrightness(this.value)">
+    </section>
+
+    <section class="lighting-section">
+        <h2>Smart Scheduling</h2>
+        <form onsubmit="saveSchedule(event)">
+            <label for="on-time">Lights ON at:</label>
+            <input type="time" id="on-time" name="on-time">
+            <br>
+            <label for="off-time">Lights OFF at:</label>
+            <input type="time" id="off-time" name="off-time">
+            <br>
+            <button type="submit">Save Schedule</button>
+        </form>
+        <p id="schedule-status"></p>
+    </section>
+
+    <section class="lighting-section">
+        <h2>Energy Insights</h2>
+        <canvas id="energyChart" width="600" height="300"></canvas>
+    </section>
+</div>
+
+<style>
+    .lighting-dashboard {
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .lighting-section {
+        margin: 30px 0;
+        padding: 15px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+    }
+
+    .btn-control,
+    button[type=submit] {
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .energy-chart img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function simulateOccupancy() {
+        const status = document.getElementById('occupancy-status');
+        status.innerText = 'Movement detected';
+        status.style.color = 'green';
+        setTimeout(() => {
+            status.innerText = 'No movement detected';
+            status.style.color = 'red';
+        }, 3000);
+    }
+
+    function updateBrightness(value) {
+        document.getElementById('brightness-value').innerText = value + '%';
+    }
+
+    function saveSchedule(event) {
+        event.preventDefault();
+        const onTime = document.getElementById('on-time').value;
+        const offTime = document.getElementById('off-time').value;
+        document.getElementById('schedule-status').innerText = `Schedule saved: ON at ${onTime}, OFF at ${offTime}`;
+    }
+
+    // Chart.js for energy insights
+    const ctx = document.getElementById('energyChart').getContext('2d');
+    const energyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: 'Energy Usage (kWh)',
+                data: [12, 19, 14, 17, 10, 8, 11],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                title: {
+                    display: true,
+                    text: 'Weekly Lighting Energy Consumption'
+                }
+            }
+        }
+    });
+</script>
 {% endblock %}
