@@ -1,6 +1,113 @@
 {% extends 'dashboard/base.html' %}
 {% block title %}Waste Management{% endblock %}
 {% block content %}
-<h1>Intelligent Waste Management</h1>
-<p>Smart bins, automated route planning, and recycling insights.</p>
+<div class="container mx-auto p-6">
+    <!-- Waste Management Overview -->
+    <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Smart Waste Management</h2>
+
+        <!-- Waste Collection Status -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">Waste Collection Status</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Recycling Bin -->
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Recycling Bin</h4>
+                    <div class="bg-blue-200 p-6 rounded-md text-center">
+                        <h5 class="text-xl font-bold text-blue-600">Status: </h5>
+                        <span id="recycling-status" class="text-green-500">Not Full</span>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Location: 1st Floor</p>
+                </div>
+
+                <!-- Organic Bin -->
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Organic Bin</h4>
+                    <div class="bg-green-200 p-6 rounded-md text-center">
+                        <h5 class="text-xl font-bold text-green-600">Status: </h5>
+                        <span id="organic-status" class="text-yellow-500">Not Full</span>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Location: Ground Floor</p>
+                </div>
+
+                <!-- Non-Recyclable Bin -->
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Non-Recyclable Bin</h4>
+                    <div class="bg-gray-200 p-6 rounded-md text-center">
+                        <h5 class="text-xl font-bold text-gray-600">Status: </h5>
+                        <span id="non-recyclable-status" class="text-red-500">Not Full</span>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Location: 2nd Floor</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Waste Generation Trends (Chart) -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">Waste Generation Trends</h3>
+            <div class="w-full h-64">
+                <canvas id="waste-trends-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Sustainability Insights -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">Sustainability Insights</h3>
+            <p class="text-center text-lg text-gray-700 mb-4">Our waste management system focuses on recycling and
+                reducing waste. Here’s how we are doing:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Recycled Waste -->
+                <div class="bg-green-100 p-6 rounded-md shadow-md text-center">
+                    <h4 class="text-lg font-semibold text-green-700">Recycled Waste</h4>
+                    <p class="text-xl font-bold text-green-600">65%</p>
+                    <p class="text-sm text-gray-500">Of total waste recycled this month.</p>
+                </div>
+
+                <!-- Waste Diverted -->
+                <div class="bg-yellow-100 p-6 rounded-md shadow-md text-center">
+                    <h4 class="text-lg font-semibold text-yellow-700">Waste Diverted</h4>
+                    <p class="text-xl font-bold text-yellow-600">30%</p>
+                    <p class="text-sm text-gray-500">Waste diverted from landfills through composting.</p>
+                </div>
+
+                <!-- Landfill Waste -->
+                <div class="bg-red-100 p-6 rounded-md shadow-md text-center">
+                    <h4 class="text-lg font-semibold text-red-700">Waste to Landfill</h4>
+                    <p class="text-xl font-bold text-red-600">5%</p>
+                    <p class="text-sm text-gray-500">Waste sent to landfill this month.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('waste-trends-chart').getContext('2d');
+    const wasteTrendsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Waste Generation (kg)',
+                data: [120, 150, 180, 140], // Example data (kg of waste)
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Waste Generation Trends'
+                }
+            }
+            }
+        });
+</script>
+
 {% endblock %}

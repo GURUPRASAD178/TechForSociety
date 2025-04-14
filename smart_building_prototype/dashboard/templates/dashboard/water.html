@@ -1,6 +1,109 @@
 {% extends 'dashboard/base.html' %}
-{% block title %}Water Management{% endblock %}
+{% load static %}
+
 {% block content %}
-<h1>Smart Water & Resource Management</h1>
-<p>Track usage, automate irrigation, and detect leaks in real-time.</p>
+<div class="flex flex-col container py-4 gap-6">
+
+    <div class="con d-flex flex-row justify-content-between align-items-center mb-4">
+
+        <h1 class="text-3xl font-bold mb-4">Water Management</h1>
+
+        <!-- Water Flow Control Panel -->
+        <div class="bg-white p-4 rounded-xl shadow-md">
+            <h2 class="text-xl font-semibold mb-3">Real-Time Water Flow Control</h2>
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="flex-1">
+                    <label for="flowRange" class="block font-medium">Set Water Flow (<span id="currentFlow">50</span>
+                        L/min)</label>
+                    <input type="range" id="flowRange" min="0" max="100" value="50" class="w-full mt-2">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label><input type="radio" name="mode" value="normal" checked> Normal</label>
+                    <label><input type="radio" name="mode" value="eco"> Eco</label>
+                    <label><input type="radio" name="mode" value="high"> High</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zone Control Panel -->
+        <div class="bg-white p-4 rounded-xl shadow-md">
+            <h2 class="text-xl font-semibold mb-3">Zone-Based Water Flow Control</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for zone in "ABCD" %}
+                <div class="border p-3 rounded-md">
+                    <h3 class="font-semibold mb-2">{{ zone }}</h3>
+                    <label>Water Flow:
+                        <input type="number" min="0" max="100" value="50" class="border rounded px-2 py-1 w-20">
+                        L/min
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Predictive Maintenance -->
+        <div class="bg-white p-4 rounded-xl shadow-md">
+            <h2 class="text-xl font-semibold mb-3">Predictive Maintenance</h2>
+            <p class="mb-2">AI is monitoring water system health and predicting potential issues.</p>
+            <ul class="list-disc list-inside text-sm">
+                <li>No issues detected in last 24 hours.</li>
+                <li>Pipe inspection recommended for Zone 2 in 3 days.</li>
+            </ul>
+        </div>
+
+        <!-- Water Usage Chart -->
+        <div class="bg-white p-4 rounded-xl shadow-md">
+            <h2 class="text-xl font-semibold mb-3">Water Usage Trends</h2>
+            <canvas id="waterChart" height="100"></canvas>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const flowRange = document.getElementById("flowRange");
+    const currentFlow = document.getElementById("currentFlow");
+    flowRange.addEventListener("input", () => {
+        currentFlow.textContent = flowRange.value;
+    });
+
+    const ctx = document.getElementById('waterChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Water Usage (L)',
+                data: [150, 120, 130, 140, 160, 180, 150],
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                tension: 0.3,
+                fill: true,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Liters (L)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Day'
+                    }
+                }
+            }
+        }
+    });
+</script>
 {% endblock %}

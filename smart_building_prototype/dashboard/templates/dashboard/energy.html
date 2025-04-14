@@ -1,6 +1,138 @@
 {% extends 'dashboard/base.html' %}
 {% block title %}Energy Optimization{% endblock %}
 {% block content %}
-<h1>Energy Management & Optimization</h1>
-<p>Monitor solar/wind usage, optimize power distribution, and reduce costs.</p>
+<div class="container mx-auto p-6">
+    <!-- Energy Consumption Overview -->
+    <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Smart Energy Management</h2>
+
+        <!-- Energy Consumption Status -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">Energy Consumption Overview</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Lighting System -->
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Lighting System</h4>
+                    <div class="bg-yellow-200 p-6 rounded-md text-center">
+                        <h5 class="text-xl font-bold text-yellow-600">Energy Usage: </h5>
+                        <span id="lighting-energy" class="text-orange-500">320 kWh</span>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Location: Entire Building</p>
+                </div>
+
+                <!-- HVAC System -->
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">HVAC System</h4>
+                    <div class="bg-blue-200 p-6 rounded-md text-center">
+                        <h5 class="text-xl font-bold text-blue-600">Energy Usage: </h5>
+                        <span id="hvac-energy" class="text-blue-500">520 kWh</span>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Location: Floors 1-4</p>
+                </div>
+
+                <!-- Security System -->
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Security System</h4>
+                    <div class="bg-green-200 p-6 rounded-md text-center">
+                        <h5 class="text-xl font-bold text-green-600">Energy Usage: </h5>
+                        <span id="security-energy" class="text-green-500">100 kWh</span>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Location: Entire Building</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Energy Efficiency Trends (Chart) -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">Energy Efficiency Trends</h3>
+            <div class="w-full h-64">
+                <canvas id="energy-efficiency-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Smart Metering -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">Smart Metering</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Meter 1 -->
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Meter 1 - Main Supply</h4>
+                    <div class="bg-blue-100 p-6 rounded-md text-center">
+                        <h5 class="text-xl font-bold text-blue-600">Current Reading: </h5>
+                        <span id="main-supply-reading" class="text-blue-500">1250 kWh</span>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Location: Main Building</p>
+                </div>
+
+                <!-- Meter 2 -->
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Meter 2 - HVAC Zone</h4>
+                    <div class="bg-yellow-100 p-6 rounded-md text-center">
+                        <h5 class="text-xl font-bold text-yellow-600">Current Reading: </h5>
+                        <span id="hvac-zone-reading" class="text-yellow-500">430 kWh</span>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Location: HVAC Zone</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Energy Usage Insights -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">Energy Usage Insights</h3>
+            <p class="text-center text-lg text-gray-700 mb-4">Our energy usage trends provide valuable insights into how
+                efficiently we are managing energy. Here's a breakdown of the current usage across systems:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Energy Efficiency -->
+                <div class="bg-green-100 p-6 rounded-md shadow-md text-center">
+                    <h4 class="text-lg font-semibold text-green-700">Energy Efficiency</h4>
+                    <p class="text-xl font-bold text-green-600">85%</p>
+                    <p class="text-sm text-gray-500">Efficiently using energy across all systems.</p>
+                </div>
+
+                <!-- Peak Usage Time -->
+                <div class="bg-yellow-100 p-6 rounded-md shadow-md text-center">
+                    <h4 class="text-lg font-semibold text-yellow-700">Peak Usage Time</h4>
+                    <p class="text-xl font-bold text-yellow-600">2 PM - 4 PM</p>
+                    <p class="text-sm text-gray-500">Peak energy usage during the day.</p>
+                </div>
+
+                <!-- Energy Savings -->
+                <div class="bg-red-100 p-6 rounded-md shadow-md text-center">
+                    <h4 class="text-lg font-semibold text-red-700">Energy Savings</h4>
+                    <p class="text-xl font-bold text-red-600">15%</p>
+                    <p class="text-sm text-gray-500">Energy saved through smart management systems.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('energy-efficiency-chart').getContext('2d');
+    const energyEfficiencyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Energy Efficiency (%)',
+                data: [80, 85, 90, 87], // Example data (energy efficiency in percentage)
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Energy Efficiency Over Time'
+                }
+            }
+        }
+    });
+</script>
+
 {% endblock %}

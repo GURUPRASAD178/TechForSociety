@@ -1,6 +1,120 @@
 {% extends 'dashboard/base.html' %}
 {% block title %}Security Management{% endblock %}
 {% block content %}
-<h1>Smart Security & Access Control</h1>
-<p>Monitor with AI surveillance and manage access securely.</p>
+<div class="container mx-auto p-6">
+    <!-- Security Control Panel -->
+    <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Smart Security & Access Control</h2>
+
+        <!-- Surveillance Section -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">AI-Driven Surveillance</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Camera Feed 1</h4>
+                    <div class="bg-gray-200 p-6 rounded-md">
+                        <!-- You can embed a real camera feed or placeholder image here -->
+                        <img src="https://via.placeholder.com/300x200" alt="Camera Feed 1" class="w-full rounded-md">
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Live Feed: AI is monitoring for unusual
+                        activities.</p>
+                </div>
+
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Camera Feed 2</h4>
+                    <div class="bg-gray-200 p-6 rounded-md">
+                        <!-- Placeholder for Camera Feed -->
+                        <img src="https://via.placeholder.com/300x200" alt="Camera Feed 2" class="w-full rounded-md">
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Live Feed: AI monitoring for security breaches.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Access Control Section -->
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">Automated Access Control</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Main Door</h4>
+                    <p class="text-center mb-4">Current Status: <span id="main-door-status"
+                            class="text-green-500">Unlocked</span></p>
+                    <button id="main-door-btn"
+                        class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Lock Door</button>
+                </div>
+
+                <div class="border p-4 rounded-md shadow-md hover:shadow-lg">
+                    <h4 class="text-lg font-semibold text-center mb-3">Back Door</h4>
+                    <p class="text-center mb-4">Current Status: <span id="back-door-status"
+                            class="text-red-500">Locked</span></p>
+                    <button id="back-door-btn"
+                        class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Unlock Door</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-Time Alerts Section -->
+        <div class="bg-white p-4 rounded-xl shadow-md">
+            <h3 class="text-xl font-semibold mb-4 text-center">Real-Time Security Alerts</h3>
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full border-collapse">
+                    <thead>
+                        <tr class="bg-blue-500 text-white">
+                            <th class="py-2 px-4">Time</th>
+                            <th class="py-2 px-4">Alert Type</th>
+                            <th class="py-2 px-4">Description</th>
+                            <th class="py-2 px-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example Alerts (this can be dynamically generated in the backend) -->
+                        <tr>
+                            <td class="py-2 px-4">12:30 PM</td>
+                            <td class="py-2 px-4 text-red-500">Unauthorized Access</td>
+                            <td class="py-2 px-4">Unauthorized access detected at the back door.</td>
+                            <td class="py-2 px-4 text-yellow-500">Alert</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4">2:15 PM</td>
+                            <td class="py-2 px-4 text-green-500">Normal Activity</td>
+                            <td class="py-2 px-4">Routine security checks completed successfully.</td>
+                            <td class="py-2 px-4 text-green-500">Safe</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add JavaScript to simulate lock/unlock behavior -->
+<script>
+    document.getElementById('main-door-btn').addEventListener('click', function () {
+        const doorStatus = document.getElementById('main-door-status');
+        if (doorStatus.textContent === "Unlocked") {
+            doorStatus.textContent = "Locked";
+            doorStatus.classList.replace('text-green-500', 'text-red-500');
+            this.textContent = "Unlock Door";
+        } else {
+            doorStatus.textContent = "Unlocked";
+            doorStatus.classList.replace('text-red-500', 'text-green-500');
+            this.textContent = "Lock Door";
+        }
+    });
+
+    document.getElementById('back-door-btn').addEventListener('click', function () {
+        const doorStatus = document.getElementById('back-door-status');
+        if (doorStatus.textContent === "Locked") {
+            doorStatus.textContent = "Unlocked";
+            doorStatus.classList.replace('text-red-500', 'text-green-500');
+            this.textContent = "Lock Door";
+        } else {
+            doorStatus.textContent = "Locked";
+            doorStatus.classList.replace('text-green-500', 'text-red-500');
+            this.textContent = "Unlock Door";
+        }
+    });
+</script>
+
 {% endblock %}
