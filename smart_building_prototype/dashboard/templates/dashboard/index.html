@@ -1,61 +1,10 @@
+{% extends "dashboard/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}Dashboard{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Smart Building Dashboard</title>
-    <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
-    <script src="{% static 'dashboard/main.js' %}" defer></script>
-</head>
-
-<body>
-    <header>
-        <h1>AI-Driven Smart Building Dashboard</h1>
-    </header>
-
-    <div class="container">
-        <aside class="sidebar">
-            <ul>
-                <li><a href="#">Lighting</a></li>
-                <li><a href="#">HVAC</a></li>
-                <li><a href="#">Security</a></li>
-                <li><a href="#">Water</a></li>
-                <li><a href="#">Waste</a></li>
-                <li><a href="#">Energy</a></li>
-            </ul>
-        </aside>
-
-        <main class="dashboard">
-            <section class="card" id="lighting-card">
-                <h2>Lighting Control</h2>
-                <p>Status: <span id="lighting-status">OFF</span></p>
-                <button onclick="toggleLighting()">Toggle Lights</button>
-            </section>
-
-            <section class="card" id="hvac-card">
-                <h2>HVAC Control</h2>
-                <p>Temperature: <span id="hvac-temp">22°C</span></p>
-                <button onclick="increaseTemp()">+</button>
-                <button onclick="decreaseTemp()">-</button>
-            </section>
-
-            <section class="card" id="security-card">
-                <h2>Security Monitoring</h2>
-                <p>System: <strong>Active</strong></p>
-            </section>
-
-            <section class="card" id="water-card">
-                <h2>Water Usage</h2>
-                <p>Today: 320L</p>
-            </section>
-
-            <section class="card" id="energy-card">
-                <h2>Energy Usage</h2>
-                <p>Consumption: 14.2 kWh</p>
-            </section>
-        </main>
-    </div>
-</body>
-
-</html>
+{% block content %}
+<section class="card">
+    <h2>Dashboard Overview</h2>
+    <p>Welcome to the Smart Building Dashboard. Use the sidebar to navigate through different sections.</p>
+</section>
+{% endblock %}

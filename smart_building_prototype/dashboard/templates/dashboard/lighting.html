@@ -1,0 +1,11 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Lighting Control{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Lighting Control</h2>
+    <p>Status: <span id="lighting-status">OFF</span></p>
+    <button onclick="toggleLighting()">Toggle Lights</button>
+</section>
+{% endblock %}

@@ -21,4 +21,10 @@ from dashboard import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index, name='index'),
+    path('lighting/', views.lighting, name='lighting'),
+    path('hvac/', views.hvac, name='hvac'),
+    path('security/', views.security, name='security'),
+    path('water/', views.water, name='water'),
+    path('waste/', views.waste, name='waste'),
+    path('energy/', views.energy, name='energy'),
 ]
