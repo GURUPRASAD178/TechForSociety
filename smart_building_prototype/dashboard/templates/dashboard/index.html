@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Building Dashboard</title>
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+    <script defer src="{% static 'dashboard/script.js' %}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>AI-Driven Smart Building Dashboard</h1>
+
+        <div class="card-grid">
+            <!-- Lighting -->
+            <div class="card">
+                <h2>Smart Lighting</h2>
+                <p>Status: <span id="light-status">Off</span></p>
+                <button onclick="toggleLight()">Toggle Light</button>
+                <button onclick="simulateOccupancy()">Simulate Occupancy</button>
+                <p>Occupancy: <span id="occupancy-status">No</span></p>
+            </div>
+
+            <!-- HVAC -->
+            <div class="card">
+                <h2>HVAC Control</h2>
+                <label for="temp-range">Temperature: <span id="temp-display">24</span>°C</label><br>
+                <input type="range" id="temp-range" min="10" max="40" value="24" oninput="updateHVAC(this.value)">
+                <p>HVAC Status: <span id="hvac-status">Idle</span></p>
+            </div>
+
+            <!-- Security -->
+            <div class="card">
+                <h2>Security System</h2>
+                <button onclick="scanFace()">Simulate Face Scan</button>
+                <p>Access Status: <span id="access-status">None</span></p>
+            </div>
+
+            <!-- Water Management -->
+            <div class="card">
+                <h2>Water Management</h2>
+                <label for="moisture-range">Soil Moisture: <span id="moisture-display">50</span>%</label><br>
+                <input type="range" id="moisture-range" min="0" max="100" value="50"
+                    oninput="updateMoisture(this.value)">
+                <p>Irrigation: <span id="irrigation-status">Off</span></p>
+                <button onclick="toggleLeak()">Simulate Leak</button>
+                <p>Leak Detected: <span id="leak-status">No</span></p>
+            </div>
+
+            <!-- Energy -->
+            <div class="card">
+                <h2>Energy Usage</h2>
+                <p>Total Usage: <span id="energy-usage">12.5</span> kWh</p>
+                <button onclick="refreshEnergy()">Refresh Data</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
