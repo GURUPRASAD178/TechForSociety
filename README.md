@@ -1,4 +1,4 @@
-# TechForSociety
+# EcoLight
 
 Problem Statement:
 
